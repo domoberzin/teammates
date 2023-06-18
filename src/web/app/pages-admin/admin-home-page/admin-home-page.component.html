@@ -17,6 +17,21 @@
 <div class="card bg-light top-padded">
   <div class="card-body">
     <div>
+      <strong>Importing Instructors from Excel files</strong>
+      <p class="text-muted">
+        <i class="fas fa-exclamation-circle"></i> Ensure spreadsheet has the following columns: Name, Email, Institution. Invalid inputs will be ignored.
+      </p>
+    </div>
+    <div class="top-padded">
+      <input type="file" id="instructors-detail-file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+      <button class="btn btn-primary" id="import-instructor" (click)="handleFileUpload()"> Import from spreadsheet</button>
+    </div>
+  </div>
+</div>
+
+<div class="card bg-light top-padded">
+  <div class="card-body">
+    <div>
       <strong>Adding a Single Instructor</strong>
     </div>
 

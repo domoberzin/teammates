@@ -11,6 +11,7 @@ import { Account, Accounts, Courses, JoinLink } from '../../../types/api-output'
 import { SimpleModalType } from '../../components/simple-modal/simple-modal-type';
 import { ErrorMessageOutput } from '../../error-message-output';
 import { InstructorData, RegisteredInstructorAccountData } from './instructor-data';
+import * as XLSX from 'xlsx';
 
 /**
  * Admin home page.
@@ -73,6 +74,57 @@ export class AdminHomePageComponent {
       });
     }
     this.instructorDetails = invalidLines.join('\r\n');
+  }
+
+  /**
+   * Handles the upload of the instructors details file.
+   */
+  handleFileUpload(): void {
+    const instructorsDetailsFile = document.getElementById('instructors-detail-file') as HTMLInputElement;
+    if (!instructorsDetailsFile.files || instructorsDetailsFile.files.length === 0) {
+      return;
+    }
+
+    const file = instructorsDetailsFile.files[0];
+
+    if (!file) {
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const arrayBuffer = event.target?.result as ArrayBuffer;
+      this.processFileDataAndAddInstructors(arrayBuffer);
+    };
+
+    reader.readAsArrayBuffer(file);
+
+  }
+
+  /*
+   * Processes the file data and adds the instructors.
+   */
+  processFileDataAndAddInstructors(arrayBuffer: ArrayBuffer) {
+    const data = new Uint8Array(arrayBuffer);
+    const workbook = XLSX.read(data, {type: 'array'});
+
+    const firstSheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[firstSheetName];
+
+    const instructorsDetails = XLSX.utils.sheet_to_json(worksheet, {raw: true});
+
+    instructorsDetails.forEach((instructorDetail: any) => {
+      if (instructorDetail['Name'] && instructorDetail['Email'] && instructorDetail['Institution']) {
+        this.instructorsConsolidated.push({
+            name: instructorDetail['Name'],
+            email: instructorDetail['Email'],
+            institution: instructorDetail['Institution'],
+            status: 'PENDING',
+            isCurrentlyBeingEdited: false,
+        });
+      }
+    });
   }
 
   /**
