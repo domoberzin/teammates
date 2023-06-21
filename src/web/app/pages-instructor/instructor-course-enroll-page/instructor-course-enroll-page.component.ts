@@ -19,6 +19,7 @@ import { StatusMessage } from '../../components/status-message/status-message';
 import { collapseAnim } from '../../components/teammates-common/collapse-anim';
 import { ErrorMessageOutput } from '../../error-message-output';
 import { EnrollStatus } from './enroll-status';
+import * as XLSX from 'xlsx';
 
 interface EnrollResultPanel {
   status: EnrollStatus;
@@ -112,6 +113,46 @@ export class InstructorCourseEnrollPageComponent implements OnInit {
       this.getCourseEnrollPageData(queryParams.courseid);
     });
   }
+ populateTableWithFileData() {
+  const inputFile = (document.getElementById('fileInput') as HTMLInputElement).files;
+    if (!inputFile || inputFile.length == 0) {
+        return;
+    }
+
+
+   const file = inputFile[0];
+
+     if (!file || !file.name.endsWith('.xlsx')) {
+       return;
+     }
+
+     const reader = new FileReader();
+     reader.onload = (e: any) => {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, {type: 'array'});
+      const sheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[sheetName];
+      const sheetData = XLSX.utils.sheet_to_json(sheet, {raw: true});
+
+      // create nested array of sheet data
+      const nestedSheetData: any[][] = [];
+
+      sheetData.forEach((row: any) => {
+        const nestedRow: any[] = [];
+        Object.keys(row).forEach((key: string) => {
+          nestedRow.push(row[key]);
+        });
+        nestedSheetData.push(nestedRow);
+      });
+
+      const newStudentsHOTInstance: Handsontable =
+        this.hotRegisterer.getInstance(this.newStudentsHOT);
+      newStudentsHOTInstance.loadData(nestedSheetData);
+    };
+
+    reader.readAsArrayBuffer(file);
+
+ }
 
   /**
    * Submits enroll data
