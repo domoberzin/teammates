@@ -113,6 +113,7 @@ export class InstructorCourseEnrollPageComponent implements OnInit {
       this.getCourseEnrollPageData(queryParams.courseid);
     });
   }
+
  populateTableWithFileData() {
   const inputFile = (document.getElementById('fileInput') as HTMLInputElement).files;
     if (!inputFile || inputFile.length == 0) {
@@ -140,7 +141,7 @@ export class InstructorCourseEnrollPageComponent implements OnInit {
       sheetData.forEach((row: any) => {
         const nestedRow: any[] = [];
         Object.keys(row).forEach((key: string) => {
-          nestedRow.push(row[key]);
+            nestedRow.push(String(row[key]));
         });
         nestedSheetData.push(nestedRow);
       });
@@ -192,6 +193,7 @@ export class InstructorCourseEnrollPageComponent implements OnInit {
     newStudentsHOTInstance.getData()
         .forEach((row: string[], index: number) => {
           if (!row.every((cell: string) => cell === null || cell === '')) {
+            console.log(row[hotInstanceColHeaders.indexOf(this.colHeaders[0])]);
             studentEnrollRequests.set(index, {
               section: row[hotInstanceColHeaders.indexOf(this.colHeaders[0])] === null
                   ? '' : row[hotInstanceColHeaders.indexOf(this.colHeaders[0])].trim(),
