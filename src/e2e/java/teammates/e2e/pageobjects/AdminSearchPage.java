@@ -88,7 +88,6 @@ public class AdminSearchPage extends AppPage {
 
     public void clickSearchButton() {
         click(searchButton);
-        click(searchButton);
         waitForPageToLoad();
     }
 
