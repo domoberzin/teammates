@@ -1,6 +1,7 @@
 package teammates.e2e.cases;
 
 import java.time.Instant;
+import java.util.concurrent.TimeUnit;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
@@ -60,6 +61,13 @@ public class AdminSearchPageE2ETest extends BaseE2ETestCase {
                 studentHomePageLink);
         searchPage.verifyStudentExpandedLinks(student, numExpandedRows);
 
+        ______TS("Typical case: Regenerate registration key for a course student");
+        searchPage.clickExpandStudentLinks();
+        String originalJoinLink = searchPage.getStudentJoinLink(student);
+        searchPage.regenerateStudentKey(student);
+        searchPage.verifyRegenerateStudentKey(student, originalJoinLink);
+        searchPage.waitForPageToLoad();
+
         ______TS("Typical case: Reset student google id");
         searchPage.resetStudentGoogleId(student);
         student.setGoogleId(null);
@@ -67,14 +75,6 @@ public class AdminSearchPageE2ETest extends BaseE2ETestCase {
         studentHomePageLink = getExpectedStudentHomePageLink(student);
         searchPage.verifyStudentRowContent(student, course, studentDetails, studentManageAccountLink,
                 studentHomePageLink);
-
-        ______TS("Typical case: Regenerate registration key for a course student");
-        searchPage.clickExpandStudentLinks();
-        String originalJoinLink = searchPage.getStudentJoinLink(student);
-
-        searchPage.regenerateStudentKey(student);
-        searchPage.verifyRegenerateStudentKey(student, originalJoinLink);
-        searchPage.waitForPageToLoad();
 
         ______TS("Typical case: Search for instructor email");
         searchPage.clearSearchBox();
@@ -87,14 +87,6 @@ public class AdminSearchPageE2ETest extends BaseE2ETestCase {
                 instructorHomePageLink);
         searchPage.verifyInstructorExpandedLinks(instructor);
 
-        ______TS("Typical case: Reset instructor google id");
-        searchPage.resetInstructorGoogleId(instructor);
-        instructor.setGoogleId(null);
-        instructorManageAccountLink = getExpectedInstructorManageAccountLink(instructor);
-        instructorHomePageLink = getExpectedInstructorHomePageLink(instructor);
-        searchPage.verifyInstructorRowContent(instructor, course, instructorManageAccountLink,
-                instructorHomePageLink);
-
         ______TS("Typical case: Regenerate registration key for an instructor");
         searchPage.clickExpandInstructorLinks();
         originalJoinLink = searchPage.getInstructorJoinLink(instructor);
@@ -102,6 +94,13 @@ public class AdminSearchPageE2ETest extends BaseE2ETestCase {
         searchPage.regenerateInstructorKey(instructor);
         searchPage.verifyRegenerateInstructorKey(instructor, originalJoinLink);
         searchPage.waitForPageToLoad();
+
+        ______TS("Typical case: Reset instructor google id");
+        searchPage.resetInstructorGoogleId(instructor);
+        instructorManageAccountLink = getExpectedInstructorManageAccountLink(instructor);
+        instructorHomePageLink = getExpectedInstructorHomePageLink(instructor);
+        searchPage.verifyInstructorRowContent(instructor, course, instructorManageAccountLink,
+                instructorHomePageLink);
 
         ______TS("Typical case: Search for account request by email");
         searchPage.clearSearchBox();

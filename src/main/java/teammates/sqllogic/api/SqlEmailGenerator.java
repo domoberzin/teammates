@@ -256,12 +256,10 @@ public final class SqlEmailGenerator {
 
         Course course = coursesLogic.getCourse(courseId);
         boolean isInstructor = emailType == EmailType.INSTRUCTOR_COURSE_LINKS_REGENERATED;
-        Student student = null;
+        Student student = usersLogic.getStudentForEmail(courseId, userEmail);
         Instructor instructor = null;
         if (isInstructor) {
             instructor = usersLogic.getInstructorForEmail(courseId, userEmail);
-        } else {
-            student = usersLogic.getStudentForEmail(courseId, userEmail);
         }
 
         List<FeedbackSession> sessions = new ArrayList<>();
