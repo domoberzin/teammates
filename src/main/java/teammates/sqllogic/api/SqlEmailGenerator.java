@@ -866,11 +866,11 @@ public final class SqlEmailGenerator {
     }
 
     private boolean isYetToJoinCourse(Student student) {
-        return student.getAccount().getGoogleId() == null || student.getAccount().getGoogleId().isEmpty();
+        return student.getAccount() == null || student.getAccount().getGoogleId().isEmpty();
     }
 
     private boolean isYetToJoinCourse(Instructor instructor) {
-        return instructor.getAccount().getGoogleId() == null || instructor.getAccount().getGoogleId().isEmpty();
+        return instructor.getAccount() == null || instructor.getAccount().getGoogleId().isEmpty();
     }
 
     /**

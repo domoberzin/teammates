@@ -88,6 +88,7 @@ public class AdminSearchPage extends AppPage {
 
     public void clickSearchButton() {
         click(searchButton);
+        click(searchButton);
         waitForPageToLoad();
     }
 
@@ -368,11 +369,26 @@ public class AdminSearchPage extends AppPage {
 
         assertEquals(expectedDetails, actualDetails);
         assertEquals(expectedName, actualName);
-        // assertEquals(expectedGoogleId, actualGoogleId);
+        assertEquals(expectedGoogleId, actualGoogleId);
         assertEquals(expectedInstitute, actualInstitute);
         assertEquals(expectedComment, actualComment);
-        // assertEquals(expectedManageAccountLink, actualManageAccountLink);
-        // assertEquals(expectedHomePageLink, actualHomepageLink);
+        assertEquals(expectedManageAccountLink, actualManageAccountLink);
+        assertEquals(expectedHomePageLink, actualHomepageLink);
+    }
+
+    public void verifyStudentRowContentAfterReset(Student student, Course course) {
+        WebElement studentRow = getStudentRow(student);
+        String actualName = getStudentName(studentRow);
+        String actualInstitute = getStudentInstitute(studentRow);
+        String actualComment = getStudentComments(studentRow);
+
+        String expectedName = student.getName();
+        String expectedInstitute = StringHelper.convertToEmptyStringIfNull(course.getInstitute());
+        String expectedComment = StringHelper.convertToEmptyStringIfNull(student.getComments());
+
+        assertEquals(expectedName, actualName);
+        assertEquals(expectedInstitute, actualInstitute);
+        assertEquals(expectedComment, actualComment);
     }
 
     public void verifyStudentExpandedLinks(Student student, int expectedNumExpandedRows) {
@@ -406,10 +422,25 @@ public class AdminSearchPage extends AppPage {
 
         assertEquals(expectedCourseId, actualCourseId);
         assertEquals(expectedName, actualName);
-        // assertEquals(expectedGoogleId, actualGoogleId);
-        // assertEquals(expectedHomePageLink, actualHomePageLink);
+        assertEquals(expectedGoogleId, actualGoogleId);
+        assertEquals(expectedHomePageLink, actualHomePageLink);
         assertEquals(expectedInstitute, actualInstitute);
-        // assertEquals(expectedManageAccountLink, actualManageAccountLink);
+        assertEquals(expectedManageAccountLink, actualManageAccountLink);
+    }
+
+    public void verifyInstructorRowContentAfterReset(Instructor instructor, Course course) {
+        WebElement instructorRow = getInstructorRow(instructor);
+        String actualCourseId = getInstructorCourseId(instructorRow);
+        String actualName = getInstructorName(instructorRow);
+        String actualInstitute = getInstructorInstitute(instructorRow);
+
+        String expectedCourseId = instructor.getCourseId();
+        String expectedName = instructor.getName();
+        String expectedInstitute = StringHelper.convertToEmptyStringIfNull(course.getInstitute());
+
+        assertEquals(expectedCourseId, actualCourseId);
+        assertEquals(expectedName, actualName);
+        assertEquals(expectedInstitute, actualInstitute);
     }
 
     public void verifyInstructorExpandedLinks(Instructor instructor) {
