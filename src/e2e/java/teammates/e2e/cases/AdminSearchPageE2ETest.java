@@ -48,11 +48,10 @@ public class AdminSearchPageE2ETest extends BaseE2ETestCase {
         Instructor instructor = sqlTestData.instructors.get("instructor1OfCourse1");
         AccountRequest accountRequest = sqlTestData.accountRequests.get("unregisteredInstructor1");
 
-        // ______TS("Typical case: Search student email");
+        ______TS("Typical case: Search student email");
         String searchContent = student.getEmail();
         searchPage.inputSearchContent(searchContent);
         searchPage.clickSearchButton();
-        searchPage.verifyStatusMessage("No results found.");
         String studentDetails = getExpectedStudentDetails(student);
         String studentManageAccountLink = getExpectedStudentManageAccountLink(student);
         String studentHomePageLink = getExpectedStudentHomePageLink(student);
