@@ -49,7 +49,7 @@ public class AdminSearchPageE2ETest extends BaseE2ETestCase {
         AccountRequest accountRequest = sqlTestData.accountRequests.get("unregisteredInstructor1");
 
         // ______TS("Typical case: Search student email");
-        // String searchContent = student.getEmail();
+        String searchContent = student.getEmail();
         // searchPage.inputSearchContent(searchContent);
         // searchPage.clickSearchButton();
         // searchPage.clickSearchButton();
@@ -91,7 +91,7 @@ public class AdminSearchPageE2ETest extends BaseE2ETestCase {
 
         ______TS("Typical case: Regenerate registration key for an instructor");
         searchPage.clickExpandInstructorLinks();
-        originalJoinLink = searchPage.getInstructorJoinLink(instructor);
+        String originalJoinLink = searchPage.getInstructorJoinLink(instructor);
         searchPage.regenerateInstructorKey(instructor);
         searchPage.verifyRegenerateInstructorKey(instructor, originalJoinLink);
         searchPage.waitForPageToLoad();
