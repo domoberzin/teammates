@@ -52,6 +52,7 @@ public class AdminSearchPageE2ETest extends BaseE2ETestCase {
         String searchContent = student.getEmail();
         searchPage.inputSearchContent(searchContent);
         searchPage.clickSearchButton();
+        assert searchPage.getPageSource() == null;
         String studentDetails = getExpectedStudentDetails(student);
         String studentManageAccountLink = getExpectedStudentManageAccountLink(student);
         String studentHomePageLink = getExpectedStudentHomePageLink(student);
