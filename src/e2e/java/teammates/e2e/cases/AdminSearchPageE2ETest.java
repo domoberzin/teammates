@@ -60,14 +60,13 @@ public class AdminSearchPageE2ETest extends BaseE2ETestCase {
                 studentHomePageLink);
         searchPage.verifyStudentExpandedLinks(student, numExpandedRows);
 
-        // Wait for update student action to be merged
-        // ______TS("Typical case: Reset student google id");
-        // searchPage.resetStudentGoogleId(student);
-        // student.setGoogleId(null);
-        // studentManageAccountLink = getExpectedStudentManageAccountLink(student);
-        // studentHomePageLink = getExpectedStudentHomePageLink(student);
-        // searchPage.verifyStudentRowContent(student, course, studentDetails, studentManageAccountLink,
-        //         studentHomePageLink);
+        ______TS("Typical case: Reset student google id");
+        searchPage.resetStudentGoogleId(student);
+        student.setGoogleId(null);
+        studentManageAccountLink = getExpectedStudentManageAccountLink(student);
+        studentHomePageLink = getExpectedStudentHomePageLink(student);
+        searchPage.verifyStudentRowContent(student, course, studentDetails, studentManageAccountLink,
+                studentHomePageLink);
 
         ______TS("Typical case: Regenerate registration key for a course student");
         searchPage.clickExpandStudentLinks();
@@ -88,13 +87,13 @@ public class AdminSearchPageE2ETest extends BaseE2ETestCase {
                 instructorHomePageLink);
         searchPage.verifyInstructorExpandedLinks(instructor);
 
-        // ______TS("Typical case: Reset instructor google id");
-        // searchPage.resetInstructorGoogleId(instructor);
-        // instructor.setGoogleId(null);
-        // instructorManageAccountLink = getExpectedInstructorManageAccountLink(instructor);
-        // instructorHomePageLink = getExpectedInstructorHomePageLink(instructor);
-        // searchPage.verifyInstructorRowContent(instructor, course, instructorManageAccountLink,
-        //         instructorHomePageLink);
+        ______TS("Typical case: Reset instructor google id");
+        searchPage.resetInstructorGoogleId(instructor);
+        instructor.setGoogleId(null);
+        instructorManageAccountLink = getExpectedInstructorManageAccountLink(instructor);
+        instructorHomePageLink = getExpectedInstructorHomePageLink(instructor);
+        searchPage.verifyInstructorRowContent(instructor, course, instructorManageAccountLink,
+                instructorHomePageLink);
 
         ______TS("Typical case: Regenerate registration key for an instructor");
         searchPage.clickExpandInstructorLinks();

@@ -2,19 +2,19 @@
   "accounts": {
     "instructor1OfCourse1": {
       "id": "00000000-0000-4000-8000-000000000001",
-      "googleId": "tm.e2e.ASearch.instr1",
+      "googleId": "tm.e2e.ASearch.instr",
       "name": "Instructor 1",
       "email": "ASearch.instructor1@gmail.tmt"
     },
     "unregisteredInstructor1": {
       "id": "00000000-0000-4000-8000-000000000006",
-      "googleId": "unregisteredInstructor1",
+      "googleId": "unregisteredInstructor",
       "name": "Unregistered Instructor 1 of Course1",
       "email": "unregisteredinstructor1@gmail.tmt"
     },
     "student1InCourse1": {
       "id": "00000000-0000-4000-8000-000000000101",
-      "googleId": "tm.e2e.ASearch.student1",
+      "googleId": "tm.e2e.ASearch.student",
       "name": "Student1 in course1",
       "email": "ASearch.student1@gmail.tmt"
     }
