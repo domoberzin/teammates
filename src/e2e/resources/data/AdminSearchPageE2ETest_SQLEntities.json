@@ -25,7 +25,8 @@
       "googleId": "unregisteredInstructor1",
       "name": "Unregistered Instructor 1 of Course1",
       "email": "unregisteredinstructor1@gmail.tmt",
-      "institute":"TEAMMATES Test Institute 0"
+      "institute":"TEAMMATES Test Institute 0",
+      "registeredAt": "2010-02-14T00:00:00Z"
     }
   },
   "courses": {

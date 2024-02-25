@@ -11,9 +11,9 @@ import teammates.e2e.pageobjects.AdminSearchPage;
 import teammates.e2e.util.TestProperties;
 import teammates.storage.sqlentity.AccountRequest;
 import teammates.storage.sqlentity.Course;
+import teammates.storage.sqlentity.FeedbackSession;
 import teammates.storage.sqlentity.Instructor;
 import teammates.storage.sqlentity.Student;
-import teammates.storage.sqlentity.FeedbackSession;
 
 /**
  * SUT: {@link Const.WebPageURIs#ADMIN_SEARCH_PAGE}.
@@ -26,10 +26,9 @@ public class AdminSearchPageE2ETest extends BaseE2ETestCase {
             return;
         }
         testData = loadDataBundle("/AdminSearchPageE2ETest.json");
-        sqlTestData = 
-        removeAndRestoreSqlDataBundle(
+        sqlTestData = removeAndRestoreSqlDataBundle(
             loadSqlDataBundle("/AdminSearchPageE2ETest_SQLEntities.json"));
-        putDocumentsSQL(sqlTestData);
+        putDocumentsSql(sqlTestData);
         removeAndRestoreDataBundle(testData);
         putDocuments(testData);
     }
@@ -61,6 +60,7 @@ public class AdminSearchPageE2ETest extends BaseE2ETestCase {
                 studentHomePageLink);
         searchPage.verifyStudentExpandedLinks(student, numExpandedRows);
 
+        // Wait for update student action to be merged
         // ______TS("Typical case: Reset student google id");
         // searchPage.resetStudentGoogleId(student);
         // student.setGoogleId(null);
@@ -112,27 +112,27 @@ public class AdminSearchPageE2ETest extends BaseE2ETestCase {
         searchPage.verifyAccountRequestRowContent(accountRequest);
         searchPage.verifyAccountRequestExpandedLinks(accountRequest);
 
-        // ______TS("Typical case: Search common search key");
-        // searchPage.clearSearchBox();
-        // searchContent = "Course1";
-        // searchPage.inputSearchContent(searchContent);
-        // searchPage.clickSearchButton();
-        // searchPage.verifyStudentRowContent(student, course, studentDetails, studentManageAccountLink,
-        //         studentHomePageLink);
-        // searchPage.verifyInstructorRowContent(instructor, course, instructorManageAccountLink,
-        //         instructorHomePageLink);
-        // searchPage.verifyAccountRequestRowContent(accountRequest);
+        ______TS("Typical case: Search common search key");
+        searchPage.clearSearchBox();
+        searchContent = "Course1";
+        searchPage.inputSearchContent(searchContent);
+        searchPage.clickSearchButton();
+        searchPage.verifyStudentRowContent(student, course, studentDetails, studentManageAccountLink,
+                studentHomePageLink);
+        searchPage.verifyInstructorRowContent(instructor, course, instructorManageAccountLink,
+                instructorHomePageLink);
+        searchPage.verifyAccountRequestRowContent(accountRequest);
 
-        // ______TS("Typical case: Expand and collapse links");
-        // searchPage.verifyLinkExpansionButtons(student, instructor, accountRequest);
+        ______TS("Typical case: Expand and collapse links");
+        searchPage.verifyLinkExpansionButtons(student, instructor, accountRequest);
 
-        // ______TS("Typical case: Reset account request successful");
-        // searchContent = "unregisteredinstructor1";
-        // searchPage.clearSearchBox();
-        // searchPage.inputSearchContent(searchContent);
-        // searchPage.clickSearchButton();
-        // searchPage.clickResetAccountRequestButton(accountRequest);
-        // assertNull(BACKDOOR.getAccountRequest(accountRequest.getEmail(), accountRequest.getInstitute()).getRegisteredAt());
+        ______TS("Typical case: Reset account request successful");
+        searchContent = "unregisteredinstructor1";
+        searchPage.clearSearchBox();
+        searchPage.inputSearchContent(searchContent);
+        searchPage.clickSearchButton();
+        searchPage.clickResetAccountRequestButton(accountRequest);
+        assertNull(BACKDOOR.getAccountRequest(accountRequest.getEmail(), accountRequest.getInstitute()).getRegisteredAt());
 
         ______TS("Typical case: Delete account request successful");
         accountRequest = sqlTestData.accountRequests.get("unregisteredInstructor1");
@@ -146,7 +146,9 @@ public class AdminSearchPageE2ETest extends BaseE2ETestCase {
 
     private String getExpectedStudentDetails(Student student) {
         return String.format("%s [%s] (%s)", student.getCourse().getId(),
-                student.getSection() == null ? Const.DEFAULT_SECTION : student.getSection().getName(), student.getTeam().getName());
+                student.getSection() == null
+                ? Const.DEFAULT_SECTION
+                : student.getSection().getName(), student.getTeam().getName());
     }
 
     private String getExpectedStudentHomePageLink(Student student) {

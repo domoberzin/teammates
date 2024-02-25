@@ -11,7 +11,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import teammates.common.util.Const;
 import teammates.common.util.StringHelper;
 import teammates.storage.sqlentity.AccountRequest;
 import teammates.storage.sqlentity.Course;
@@ -148,7 +147,7 @@ public class AdminSearchPage extends AppPage {
         for (WebElement row : rows) {
             List<WebElement> columns = row.findElements(By.tagName("td"));
             if (columns.size() >= 3 && removeSpanFromText(columns.get(2)
-            .getAttribute("innerHTML")).contains(student.getGoogleId())) {
+                    .getAttribute("innerHTML")).contains(student.getGoogleId())) {
                 return row;
             }
         }
@@ -211,7 +210,7 @@ public class AdminSearchPage extends AppPage {
         for (WebElement row : rows) {
             List<WebElement> columns = row.findElements(By.tagName("td"));
             if (columns.size() >= 3 && removeSpanFromText(columns.get(2)
-            .getAttribute("innerHTML")).contains(instructor.getGoogleId())) {
+                    .getAttribute("innerHTML")).contains(instructor.getGoogleId())) {
                 return row;
             }
         }
@@ -271,7 +270,7 @@ public class AdminSearchPage extends AppPage {
         for (WebElement row : rows) {
             List<WebElement> columns = row.findElements(By.tagName("td"));
             if (columns.size() >= 2 && removeSpanFromText(columns.get(1)
-            .getAttribute("innerHTML")).contains(email)) {
+                    .getAttribute("innerHTML")).contains(email)) {
                 return row;
             }
         }
