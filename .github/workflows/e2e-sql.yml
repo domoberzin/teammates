@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - release
+      - test-test
   pull_request:
     branches:
       - master
