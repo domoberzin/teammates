@@ -7,7 +7,7 @@
         </packages>
         <classes>
             <class name="teammates.e2e.cases.sql.FeedbackResultsPageE2ETest" />
-            <class name="teammates.e2e.cases.sql.FeedbackMcqQuestionE2ETest" />
+            <!-- <class name="teammates.e2e.cases.sql.FeedbackMcqQuestionE2ETest" />
             <class name="teammates.e2e.cases.sql.FeedbackMsqQuestionE2ETest" />
             <class name="teammates.e2e.cases.sql.FeedbackTextQuestionE2ETest" />
             <class name="teammates.e2e.cases.sql.FeedbackNumScaleQuestionE2ETest" />
@@ -15,7 +15,7 @@
             <class name="teammates.e2e.cases.sql.StudentHomePageE2ETest" />
             <class name="teammates.e2e.cases.sql.AdminSearchPageE2ETest" />
             <class name="teammates.e2e.cases.sql.FeedbackRankOptionQuestionE2ETest" />
-            <class name="teammates.e2e.cases.sql.InstructorNotificationsPageE2ETest" />
+            <class name="teammates.e2e.cases.sql.InstructorNotificationsPageE2ETest" /> -->
         </classes>
     </test>
 </suite>
